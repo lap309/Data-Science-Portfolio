@@ -4,11 +4,11 @@ Hi, I'm Liana! I have a Bachelor's degree in statistical mathematics and technol
 
 This repository displays only some of my projects across a wide assortment of Data Analyst/Data Science topic. You can check out my other projects at the links below. Feel free to contact me with any questions!
 
-- [Portfolio Projects]()
+- [Portfolio Projects](https://github.com/lap309/Data-Analysis-Portfolio/edit/main/README.md#portfolio-projects)
 
-- [SQL Projects]()
+- [SQL Projects](https://github.com/lap309/SQL-Queries)
 
-- [Python Projects]()
+- [Python Projects](https://github.com/lap309/Python)
 
 - [Tableau Dashboard]()
 
@@ -22,7 +22,7 @@ Tableau Public Account
 
 Email:                    principe.liana@gmail.com
 
-## Portolio Projects
+## Portfolio Projects
 - #### Project 1 _ brief description
 - #### Project 2 _ brief description
 - #### Project 3 _ brief description
