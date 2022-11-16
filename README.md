@@ -25,30 +25,30 @@ Email:                    principe.liana@gmail.com
 ## Portfolio Projects
 ### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) 
 
-##### Data Description:
-##### Skills:
-##### Technology:
-##### Results:
+*Data Description:* A Retail dataset of a global superstore for 4 years
+##### Skills: `Forecasting`
+*Technology:*
+*Results:*
 
 ### [A/B Testing]
 
-##### Data Description:
+*Data Description:*
 ##### Skills:
-##### Technology:
-##### Results:
+*Technology:*
+*Results:*
 
 ### [Business Brief]
 
-##### Data Description:
+*Data Description:*
 ##### Skills:
-##### Technology:
-##### Results:
+*Technology:*
+*Results:*
 
 ### [Spotify Classification]
 
-##### Data Description:
+*Data Description:*
 ##### Skills:
-##### Technology:
-##### Results:
+*Technology:*
+*Results:*
 
 
