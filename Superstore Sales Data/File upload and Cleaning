@@ -6,7 +6,6 @@ df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_train.csv')
 
 # General Info
 print(df.info())
-df_columns = df.columns
 
 
 # Converting Date Columns to DateTime format in dataframe
@@ -52,6 +51,6 @@ null_val  = df[df['Postal Code'].isnull()]
 print(null_val[['City','State', 'Postal Code']])
 
 # Filling in NaN values
-df = df['Postal Code'].fillna(5401)
+df['Postal Code'] = df['Postal Code'].fillna(5401)
 # checking that NaN values have been filled in
 print(df.isnull().sum())
