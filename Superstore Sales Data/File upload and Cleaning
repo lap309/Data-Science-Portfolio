@@ -39,6 +39,7 @@ df.drop('Row ID',axis = 1, inplace = True)
 # Sorting the data by year, month, most recent years being first
 df.sort_values(by=['order_year', 'order_month'], inplace=True, ascending=False)
 df.set_index("order_year", inplace = True)
+df_columns = df.columns
 print(df.head())
 
 
