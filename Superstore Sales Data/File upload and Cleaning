@@ -8,6 +8,7 @@ df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_train.csv')
 print(df.info())
 df_columns = df.columns
 
+```ruby
 # Converting Date Columns to DateTime format in dataframe
 df['Order Date'] = pd.to_datetime(df['Order Date'], format='%d/%m/%Y')
 df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%d/%m/%Y')
@@ -20,7 +21,7 @@ df['order_year'] = df['Order Date'].dt.year.astype(int)
 df['ship_month'] = df['Ship Date'].dt.month_name(locale='English')
 df['ship_month_n'] = df['Ship Date'].dt.month
 df['ship_year'] = df['Ship Date'].dt.year.astype(int)
-
+```
 
 
 
