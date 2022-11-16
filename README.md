@@ -23,7 +23,7 @@ Tableau Public Account
 Email:                    principe.liana@gmail.com
 
 ## Portfolio Projects
-- #### Project 1 _ brief description
+- #### Superstore Sales _ brief description
 - #### Project 2 _ brief description
 - #### Project 3 _ brief description
 
