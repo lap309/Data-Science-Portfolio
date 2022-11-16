@@ -23,7 +23,7 @@ Tableau Public Account
 Email:                    principe.liana@gmail.com
 
 ## Portfolio Projects
-- #### Superstore Sales _ brief description
+- #### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) _ brief description
 - #### Project 2 _ brief description
 - #### Project 3 _ brief description
 
