@@ -1,0 +1,154 @@
+# package install
+import requests
+import itertools
+
+from fpdf import FPDF
+
+pdf = FPDF()
+
+
+
+
+def recipe_search(ingredients, allergy, diet):
+  app_id = 'daf594a7'
+  app_key = '57eebe1728ee8c363ebfed4e3e206f8f'
+  if len(allergy)>1 and len(diet)>1:
+    results = requests.get( 'https://api.edamam.com/api/recipes/......', #didn't get full page source in photo
+      ingredients, app_id, app_key, diet, allergy)
+    )
+  data = result.json()
+  return data
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+def nutriet_search(ingredients):
+  app_id = '3a78c8df'
+  app_key = '97581f6b3aa44fbd26b7e3007a29a68d'
+  result = requests.get('https://api.edamam.com/api/nutrition-data?app_id={}&app_key={}&nutrition-type=logging&ingr={}.....,
+    app_id, app_key, ingredients)
+  )
+  data=result.json()
+  return data
+
+
+
+
+def print_results(results):
+  for results in results:
+    recipe = result['recipe']
+    print(recipe['label'])
+    print('{} kcal, {}g protein'.format(int(recipe['calories']),int(recipe['totalNutrients']['PROCNT']['quantity'])))
+    print('{} minutes'.format(recipe['totalTime']))
+    print(recipe['ingredientLines'])
+    print()
+    
+   
+   
+def sort_cal(list):
+  return list['recipe']['calories']
+
+
+def sort_time(list):
+  return list['recipe']['totalTime']
+  
+  
+def sort_protein(list):
+  return list['recipe']['totalNutrients'][PROCNT']['quantity']
+  
+  
+  
+def recipe_app():
+  fridge = []
+  fridge = [item for item in input('What ingredients do you have? Separate ingredients with a space: ').split()]
+  
+  diet_status = input(' Any dietary preferences? y/n: ')
+  if diet_status =='y':
+    diet_string = 'input("Enter 'vegan', 'vegetarian', pescatarian': ")
+  else:
+  diet_string = ''
+ 
+ 
+  allergies = input('Any allergies?y/n: ')
+  if allergies == 'y':
+    allergy_list = [allergy\n for allergy in input('Please write down your alleriges, separated with a space').split()]
+    allergy_string = '&excluded='.join(allergy_list)      # for the api search
+  else:
+    allergy_string = ''
+        
+  if (allergies=='y') and (diet_status=='y'):
+    print('Searching for {} recipe:\n' 
+      'without {}'.format(diet_string, allergy_list))
+  elif diet_status=='y':
+    print('Searching for {} recipe: '.format(diet_string))
+  else:
+    print('Searching for recipe: ')
+    if allergies=='y':
+        print('without {}'.format(allergy_list))
+        
+ # missing some code i think
+  pdf.add_page()
+  pdf.set_font('Arial', '', 14)
+  pdf.write(5, 'Your Recipes: ')
+  
+  for usable_ingredients in range(len(fridge,0,-1):
+    solution_found = False
+    new_combinations = list(itertools.combinations(fridge, usable ingredients))
+    
+    for combination in new_combinations:
+      if len(recipe_search(combinations,allergy_string, diet_string))>0:
+        results = recipe_search(combination,allergy_string, diet_string)
+        
+        for item in combination:
+          nut_results = nutrient_search(item)
+          weight = int(nut_results['totalWeight'])
+          kcal = int(nut_results['calories'])
+          daily_percent = int(nut_results['totalDaily']['ENERC KCAL']['quantity'])
+          print('A serving of {} is {}g and {}kcal\n'
+            'which is about {}% of your daily caloric requirement'.format(item, weight, kcal, daily_percentage))
+        
+        if sort_type = 'calories':
+        #missing code
+          results.sort(key=sort_protein)
+        print_results(results)
+        solution_found=True
+        for i in range(len(results)):
+          # input recipe link on pdf
+          pdf.set_text_color(0,0,255)
+          pdf.set_font('','U')
+          # TRY TO ADD IMAGE LATER
+          pdf.write(50, str(results[i]['recipe']['label']), results[i]['recipe']['uri'])
+    # CHECK INDENTATION HERE
+    if solution_found = True:
+      print( 'This recipe includes {}/{} of your ingredients'.format(len(usable_ingredients),len(fridge))
+      pdf.output('Recipe_Book.pdf')
+      break
+    
+        
+  
+   
+
+
+
+
+
+
