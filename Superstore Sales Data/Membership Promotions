@@ -1,1 +1,20 @@
 # Identifies customer activity and classifies them into membership levels
+
+#Identify statistics for customer name, find average of money spent
+# also identify aveage/stats of count of times ordered
+#try to understand the relationship people who spend a lot of money at the store and people who have a lot of orders at the store
+#scatter plot of orders vs. money spent for each customer
+make a boxplot? for all sales (do not split up between years)
+Make histogram
+
+Platinum member = top 10%
+Gold member = top 80-90
+Exclusive member = 70-80
+ 
+ Frequent Shopper = anyone else who comes to the store frequently but does not make it to the bracket of platinum, gold, or exclusive
+ 
+
+
+#To Do
+#Utilize this information for promotions
+#Next step, AB testing for differnet promotional campaigns.
