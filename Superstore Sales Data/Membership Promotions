@@ -4,30 +4,55 @@ import numpy as np
 membership_reference = df.groupby('Customer Name').agg({'Order ID':'count', 'Revenue':'sum'}).sort_values(['Order ID'], ascending = False)
 members_stat_summary = round(membership_reference.describe(),2)
 print(members_stat_summary)
-print(membership_reference.corr()) #.54 correlation
 max_num_orders = members_stat_summary['Order ID'][7]
 max_spend = members_stat_summary['Revenue'][7]
+
+# Correlation plot between number of Orders and Sum of Revenue
+print(membership_reference.corr()) #.54 correlation
+
+# ScatterPlot with Linear Regression Line
+f=sns.regplot(x='Order ID', y='Revenue', data=membership_reference, color='purple')
 
 # Histograms of count of orders and sum of revenue
 sns.set()
 fig, axes = plt.subplots(1,2, figsize=(18,6))
 ax=sns.histplot(data=membership_reference, x = 'Order ID', bins=7, ax=axes[0]).set(title='Average Number of Orders '+ str(average_num_orders))
 
-
 ax=sns.histplot(data=membership_reference, x='Revenue', ax=axes[1]).set(title='Average Spend ' + str(average_spend))
 plt.axvline(x=membership_reference.Revenue.mean(),color='red')
 
-# Identifying Outliers with the Sum of Revenue data
-# Replotting the graphs
+
+
+# Histograms of count of orders and sum of revenue
+sns.set()
+fig, axes = plt.subplots(1,2, figsize=(18,6))
+ax=sns.histplot(data=membership_reference, x = 'Order ID', bins=7, ax=axes[0], color='purple').set(title='Average Number of Orders '+ str(average_num_orders))
+
+ax=sns.histplot(data=membership_reference[membership_reference['Revenue']<10000], x='Revenue', ax=axes[1], color='purple').set(title='Average Spend ' + str(average_spend))
+plt.axvline(x=membership_reference.Revenue.mean(),color='red')
+
+
+
+
 # Redefining the membership level filters
-
+rev_outlier_limit = (members_stat_summary['Revenue'][6] - members_stat_summary['Revenue'][4]) * 1.5
+revenue_limit=10000
 # Membership Level Classification
-platinum_filter = max_spend *.9                                # Top 10% of spenders
-gold_filter = max_spend*.8                                     # Top 80-90% of spenders
-exclusive_filter = max_spend*.7                                # Top 70-80% of spenders
-freq_shopper_filter = max_num_orders>members_stat_summary[6]   #anyone else who comes to the store frequently but does not make it to the bracket of platinum, gold, or exclusive
+platinum_filter = revenue_limit *.9                                # Top 10% of spenders
+gold_filter = revenue_limit*.8                                     # Top 80-90% of spenders
+exclusive_filter = revenue_limit*.7                                # Top 70-80% of spenders
+freq_shopper_filter = max_num_orders>members_stat_summary['Order ID][6]   #anyone else who comes to the store frequently but does not make it to the bracket of platinum, gold, or exclusive
 
-# Add column to original dataset
+# Add new membership status column to membership_reference dataframe
+conditions = [
+     (membership_reference['Revenue']>=platinum_filter),
+     (membership_reference['Revenue']<platinum filter) & (membership_reference['Revenue']>=gold_filter),
+     (membership_referece['Revenue']<gold_filter) & (membership_reference['Revenue']>=exclusive_filter)]
+membership_levels = ['platinum member','gold member','exclusive member']
+
+membership_reference['membership_status'] = np.select(conditions,membership_levels, default='customer)
+
+# Add membership status to original dataframe
 
 # EDA on membership data
 
