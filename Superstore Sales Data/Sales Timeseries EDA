@@ -1,1 +1,37 @@
-print(df_columns)
+########################### Set Up #############################################
+import pandas as pd
+from matplotlib import pyplot as plt
+df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_train.csv')
+
+# Converting Date Columns to DateTime format in dataframe
+df['Order Date'] = pd.to_datetime(df['Order Date'], format='%d/%m/%Y')
+df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%d/%m/%Y')
+
+# Creating new columns,isolating month and year data for easier filtering, changing numerical month to month_name
+df['order_month'] = df['Order Date'].dt.month_name(locale='English')
+df['order_month_n'] = df['Order Date'].dt.month
+df['order_year'] = df['Order Date'].dt.year.astype(int)
+
+df['ship_month'] = df['Ship Date'].dt.month_name(locale='English')
+df['ship_month_n'] = df['Ship Date'].dt.month
+df['ship_year'] = df['Ship Date'].dt.year.astype(int)
+
+
+# Renaming Sales Column as Revenue to avoid confusion
+df.rename({'Sales': 'Revenue'}, axis = 1, inplace = True)
+df.drop('Row ID',axis = 1, inplace = True) #Dropping the Row ID column
+
+
+# Sorting the data by year, month, most recent years being first
+df.sort_values(by=['Order Date'], inplace=True, ascending=False)
+df.set_index("Order Date", inplace = True)
+
+#Create a new dataframe of all rows with NaN in the Postal Code column
+df['Postal Code'] = df['Postal Code'].fillna(5401)
+
+##########################################################################################################################
+
+# Only gathering relevant data for time series analysis
+ts_data = df['Revenue']     # The Order date is the index so this doesn't need to be included in the dataframe
+
+
