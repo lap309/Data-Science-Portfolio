@@ -12,47 +12,73 @@ print(membership_reference.corr()) #.54 correlation
 
 # ScatterPlot with Linear Regression Line
 f=sns.regplot(x='Order ID', y='Revenue', data=membership_reference, color='purple')
+plt.show(f)
 
 # Histograms of count of orders and sum of revenue
 sns.set()
 fig, axes = plt.subplots(1,2, figsize=(18,6))
 ax=sns.histplot(data=membership_reference, x = 'Order ID', bins=7, ax=axes[0]).set(title='Average Number of Orders '+ str(average_num_orders))
+plt.show(ax)
 
 ax=sns.histplot(data=membership_reference, x='Revenue', ax=axes[1]).set(title='Average Spend ' + str(average_spend))
 plt.axvline(x=membership_reference.Revenue.mean(),color='red')
+plt.show(ax)
 
 
-
+#793 unique members
 # Histograms of count of orders and sum of revenue
 sns.set()
 fig, axes = plt.subplots(1,2, figsize=(18,6))
 ax=sns.histplot(data=membership_reference, x = 'Order ID', bins=7, ax=axes[0], color='purple').set(title='Average Number of Orders '+ str(average_num_orders))
+plt.show(ax)
 
 ax=sns.histplot(data=membership_reference[membership_reference['Revenue']<10000], x='Revenue', ax=axes[1], color='purple').set(title='Average Spend ' + str(average_spend))
 plt.axvline(x=membership_reference.Revenue.mean(),color='red')
-
+plt.show(ax)
 
 
 
 # Redefining the membership level filters
 rev_outlier_limit = (members_stat_summary['Revenue'][6] - members_stat_summary['Revenue'][4]) * 1.5
-revenue_limit=10000
+
 # Membership Level Classification
-platinum_filter = revenue_limit *.9                                # Top 10% of spenders
-gold_filter = revenue_limit*.8                                     # Top 80-90% of spenders
-exclusive_filter = revenue_limit*.7                                # Top 70-80% of spenders
-freq_shopper_filter = max_num_orders>members_stat_summary['Order ID][6]   #anyone else who comes to the store frequently but does not make it to the bracket of platinum, gold, or exclusive
+platinum_filter = membership_reference['Revenue'].quantile(.9)                                # Top 10% of spenders
+gold_filter = membership_reference['Revenue'].quantile(.8)                                    # Top 10-20% of spenders
+exclusive_filter = membership_reference['Revenue'].quantile(.7)                               # Top 20-30% of spenders
+print(platinum_filter, gold_filter, exclusive_filter)  #anyone else who comes to the store frequently but does not make it to the bracket of platinum, gold, or exclusive
 
 # Add new membership status column to membership_reference dataframe
-conditions = [
+# Memberhsip status is based off of how much money a customer contributes to the store reference
+membership_conditions = [
      (membership_reference['Revenue']>=platinum_filter),
-     (membership_reference['Revenue']<platinum filter) & (membership_reference['Revenue']>=gold_filter),
-     (membership_referece['Revenue']<gold_filter) & (membership_reference['Revenue']>=exclusive_filter)]
+     (membership_reference['Revenue']<platinum_filter) & (membership_reference['Revenue']>=gold_filter),
+     (membership_reference['Revenue']<gold_filter) & (membership_reference['Revenue']>=exclusive_filter)]
 membership_levels = ['platinum member','gold member','exclusive member']
 
-membership_reference['membership_status'] = np.select(conditions,membership_levels, default='customer)
+membership_reference['membership_status'] = np.select(membership_conditions,membership_levels, default='customer')
+
+
+# Loyalty Program classification
+loyalty_filter = membership_reference['Order ID'].quantile(.85)                 # Top 15% of frequent shoppers
+frequent_shopper_filter = membership_reference['Order ID'].quantile(.70)        # Top 15-30% of frequent shoppers
+
+# Add loyalty program column to membership reference dataframe
+# Loyalty program is based on the number of times a customer shops at the store
+loyalty_conditions = [
+        (membership_reference['Order ID']>=loyalty_filter),
+     (membership_reference['Order ID']<loyalty_filter) & (membership_reference['Order ID']>=frequent_shopper_filter)]
+    
+loyalty_levels = ['loyalty program', 'frequent shopper program']
+membership_reference['loyalty_program']=np.select(loyalty_conditions, loyalty_levels, default = 'customer')
+
+print('Membership Status Count:\n',membership_reference.membership_status.value_counts())
+
+print('Loyalty Program Count:\n',membership_reference.loyalty_program.value_counts())
 
 # Add membership status to original dataframe
+df= pd.merge(df,membership_reference[['membership_status','loyalty_program']], on ='Customer Name' , how='left')
+
+
 
 # EDA on membership data
 
