@@ -23,6 +23,15 @@ Tableau Public Account
 Email:                    principe.liana@gmail.com
 
 ## Portfolio Projects
+### [oh SNAP! Curbing America's Hunger]
+Predicting Households that are more likely to experience food insecurity and exploring socio-economic variables that indicate whether a household will utilize SNAP benefits
+
+**Data Description:** FoodAPS government survey conducted by the ERS and FNS in 2012
+#### Skills: `Logistic Regression` `XGBoost` `Hyperparameter Tuning` `Forecasting`
+**Technology:** `Python` `Prophet` `Tableau` `GridSearch`
+
+**Results:**
+
 ### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) 
 
 **Data Description:** A Retail dataset of a global superstore for 4 years
@@ -39,13 +48,6 @@ Email:                    principe.liana@gmail.com
 
 **Results:**
 
-### [Business Brief]
-
-**Data Description:**
-#### Skills:
-**Technology:**
-
-**Results:**
 
 ### [Spotify Classification]
 
