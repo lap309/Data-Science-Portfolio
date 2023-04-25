@@ -24,13 +24,13 @@ Email:                    principe.liana@gmail.com
 
 ## Portfolio Projects
 ### [oh SNAP! Curbing America's Hunger]
-Predicting Households that are more likely to experience food insecurity and exploring socio-economic variables that indicate whether a household will utilize SNAP benefits
+Predicting Households that are more likely to experience food insecurity and exploring socio-economic variables that indicate whether a household will utilize SNAP (food stamp) benefits
 
 **Data Description:** FoodAPS government survey conducted by the ERS and FNS in 2012
 #### Skills: `Logistic Regression` `XGBoost` `Hyperparameter Tuning` `Forecasting`
 **Technology:** `Python` `Prophet` `Tableau` `GridSearch`
 
-**Results:**
+**Results:** A predictive model that has an accuracy of 79% and recall of 84% in detecting whether a household will utilize SNAP resources
 
 ### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) 
 
