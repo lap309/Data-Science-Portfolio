@@ -23,7 +23,7 @@ Tableau Public Account
 Email:                    principe.liana@gmail.com
 
 ## Portfolio Projects
-### [oh SNAP! Curbing America's Hunger]
+### [oh SNAP! Curbing America's Hunger](https://github.com/lap309/Data-Science-Portfolio/tree/main/SNAP%20(food%20stamp)%20Utilization%20ML%20Prediction)
 Predicting Households that are more likely to experience food insecurity and exploring socio-economic variables that indicate whether a household will utilize SNAP (food stamp) benefits
 
 **Data Description:** FoodAPS government survey conducted by the ERS and FNS in 2012
@@ -49,7 +49,7 @@ Predicting Households that are more likely to experience food insecurity and exp
 **Results:**
 
 
-### [Spotify Classification]
+### [Database]
 
 **Data Description:**
 #### Skills:
