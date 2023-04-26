@@ -1,3 +1,7 @@
+__Dashboard__ <br>
+SNAP NYC Tableau_Dashboard.twb
+
+__Data Files__ <br>
 NY_SNAP_Population 2018-2022  - [Source](https://data.cityofnewyork.us/Social-Services/Borough-Community-District-Report-SNAP-Population/jye8-w4d7) NYC Open Data recipients of SNAP benefit by New York City community board between 2018-2022 <br>
 
 NYC Community Districts Tableau mapping  - [Source](https://www.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page) NYC government spatial data file necessary in Tableau in order to segment NYC by community district <br>
