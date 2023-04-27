@@ -4,7 +4,7 @@
 [Data Source]() __1_household-codebook-puf__: Official FoodAPS explanation and guide about the survey data collection process, variables included, and data type description for each variable
 
 ### Data Files <br>
-[Data Source]()__faps_household_puf (2)__: public dataset of the FoodAPS survey conducted by ERS and FNS
+[Data Source]() __faps_household_puf (2)__: public dataset of the FoodAPS survey conducted by ERS and FNS
 
 __SNAPHH_column_reference.csv__: Manually created document for the purpose of data variable organization. This file contains columns acting as lists that organizes each variable in the dataset according to it's topic or theme. For example, separating the variables by
     * socio-economic variables
@@ -12,12 +12,12 @@ __SNAPHH_column_reference.csv__: Manually created document for the purpose of da
     * SNAP targeting data
     * administrative survey data
 
-__data_processing.py__: Manually created Python package with functions integral to the processing of data as stated i nthe SNAPHH_column_reference document. Functions include<br>
+__data_processing.py__: Manually created Python package with functions integral to the processing of data as stated in the SNAPHH_column_reference document. Functions include:<br>
     - Data Cleaning<br>
     - Interactive Null Value Detection<br>
     - Preliminary Decision Tree Feature Selection<br>
 
-__model.py__: Manually created Python package with functions created to automate and replicate the model creation portions of the project. Functions include <br>
+__model.py__: Manually created Python package with functions created to automate and replicate the model creation portions of the project. Functions include: <br>
     - Logistic Model Processing and Evaluation <br>
     - Linear Model GirdSearch Exploration <br>
     - XGBoost GridSearch Exploration <br>
