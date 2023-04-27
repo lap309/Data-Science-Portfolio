@@ -120,7 +120,7 @@ def linear_gridsearch(x_crossvalidation, y_crossvalidation , score, df_output= F
     
     return model_summary
 
-####################### Boosted Random Forest Grid Search ##################3
+####################### XGBoost Grid Search ##################3
 def boost_tree(x,y,score,df_output = False):
 
     xgbc = XGBClassifier(n_jobs=1)
