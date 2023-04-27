@@ -1,16 +1,16 @@
-### SNAP Eligibility Jupyter Notebook <br>
-[Data Source]() Notebook containing the Python code for the modeling process of this target variable
+### Jupyter Notebook <br>
+[Data Source]() __SNAP Eligibility Jupyter Notebook__: Notebook containing the Python code for the modeling process of this target variable
 
 [Data Source]() __1_household-codebook-puf__: Official FoodAPS explanation and guide about the survey data collection process, variables included, and data type description for each variable
 
 ### Data Files <br>
 [Data Source]() __faps_household_puf (2)__: public dataset of the FoodAPS survey conducted by ERS and FNS
 
-__SNAPHH_column_reference.csv__: Manually created document for the purpose of data variable organization. This file contains columns acting as lists that organizes each variable in the dataset according to it's topic or theme. For example, separating the variables by
-    * socio-economic variables
-    * nutrition variables
-    * SNAP targeting data
-    * administrative survey data
+__SNAPHH_column_reference.csv__: Manually created document for the purpose of data variable organization. This file contains columns acting as lists that organizes each variable in the dataset according to it's topic or theme. For example, separating the variables by <br>
+    * socio-economic variables <br>
+    * nutrition variables <br>
+    * SNAP targeting data <br>
+    * administrative survey data <br>
 
 __data_processing.py__: Manually created Python package with functions integral to the processing of data as stated in the SNAPHH_column_reference document. Functions include:<br>
     - Data Cleaning<br>
