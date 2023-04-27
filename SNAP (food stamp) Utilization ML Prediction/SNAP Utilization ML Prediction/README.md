@@ -1,5 +1,7 @@
 ### Jupyter Notebook <br>
-[Data Source]() __SNAP Eligibility Jupyter Notebook__: Notebook containing the Python code for the modeling process of this target variable
+__SNAP Utilization Models__: Notebook containing the Python code for the modeling process of this target variable
+
+__SNAP Utilization EDA__: Notebook containing preliminary Exploratory Data Analysis on the variables in the dataset to determine trends, patterns, or feature importance by eye
 
 [Data Source]() __1_household-codebook-puf__: Official FoodAPS explanation and guide about the survey data collection process, variables included, and data type description for each variable
 
