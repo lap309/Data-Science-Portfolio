@@ -9,3 +9,5 @@ SNAP NYC Tableau_Dashboard.twb
 [Data Source](https://www.google.com/maps/d/viewer?mid=1uVjjVxXfLFU4R6V7qjXXRoxCy-IwfMSP&ll=40.7622976%2C-73.88888519999998&z=11) __Directory_of_SNAP_Centers__ :all SNAP centers food banks, pantries, senior centers, and other distribution sites in NYC
 
 [Data Source](https://usda-fns.hub.arcgis.com/datasets/USDA-FNS::snap-store-locations/explore?location=27.155263%2C-8.363207%2C2.70) __NYC SNAP Centers__: USDA registered SNAP Centers in NYC. 
+
+SNAP_prediction_5yrs_tableau: output file from the Time Series Analysis jupyter notebook with the prediction results of SNAP users in 5 years
