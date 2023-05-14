@@ -1,0 +1,78 @@
+#Importing data
+############################################################################################
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_cleaned.csv')
+#############################################################################################
+SMALL_SIZE = 12
+MEDIUM_SIZE = 14
+BIGGER_SIZE = 18
+
+plt.rcParams.update({'font.size': 18})
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=SMALL_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+
+# Data for ALL sales data, including all years
+print(
+f'''Full Revenue Statistics for All Years\n
+Lifetime Total Revenue: ${round(df['Revenue'].sum(),2):,.2f}
+Average Lifetime Revenue: ${round(df['Revenue'].mean(),2):,.2f}
+for Superstore\n''')
+
+#Yearly Sales Aggregation Summary
+yearly_sales_comp = round(df.groupby('order_year').agg({'Revenue': ['count', 'sum', 'mean']}), 2)
+print(yearly_sales_comp)
+
+fig, axes = plt.subplots(1,2, figsize=(18,4), sharex=True)
+plt.suptitle('Total Company Data for all Four Years', fontsize=16)
+count_by_year= sns.barplot(data=yearly_sales_comp, x=yearly_sales_comp.index, y=('Revenue', 'count'), ax=axes[0], color = 'blue')
+count_by_year.set(xlabel='Year', ylabel = 'Number of Sales', title= 'Number of Sales by Year')
+
+sum_by_year = sns.barplot(data=yearly_sales_comp, x=yearly_sales_comp.index, y=('Revenue', 'sum'), ax=axes[1],color = 'green')
+sum_by_year.set(xlabel='Year', ylabel = 'Revenue Amount', title= 'Revenue by Year')
+
+# sum_by_year.set_yticks(['100K','200K','300K','400K','500K','600K','700K'])
+# count_by_year.set_yticks(['.5K','1K','1.5K','2K','2.5K','3K'])
+plt.show()
+
+# Group number of sales and total sales revenue by month by year
+all_years_sales_by_month = df.groupby(['order_year','order_month_n','order_month']).agg( {'Order ID':'count', 'Revenue': 'sum'}).reset_index()
+avg_all_years_sales_by_month=all_years_sales_by_month.groupby(['order_month']).agg({'Order ID':'mean','Revenue':'mean'}).loc[months]
+
+# set seaborn plotting aesthetics as default
+sns.set_style('whitegrid')
+fig, axes = plt.subplots(1,2, figsize=(18,4), sharex=True)
+
+#Number of Sales by month Graph
+ax1=sns.barplot(data = avg_all_years_sales_by_month, x = avg_all_years_sales_by_month.index, y = 'Order ID', ax=axes[0], color = 'blue')
+ax1.set_title('Average Monthly Number of Sales', color='blue', fontdict={'fontsize':24})
+ax1.set(ylabel='', xlabel='')
+
+# Revenue by Month Graph
+ax2 =sns.barplot(data = avg_all_years_sales_by_month, x = avg_all_years_sales_by_month.index, y='Revenue', ax=axes[1], color = 'green')
+ax2.set(xticklabels=months_abr,ylabel='',xlabel='')
+ax2.set_title(' Average Monthly Revenue', color = 'green', fontdict={'fontsize':24})
+plt.show()
+
+# Group number of sales and total sales revenue by month by year
+sales_by_month = df.groupby(['order_year','order_month_n','order_month']).agg( {'Order ID':'count', 'Revenue': 'sum'}).reset_index()
+
+#sns.set(font_scale=.9)
+sns.set_style('whitegrid')
+fig, axes = plt.subplots(4,2, figsize=(12,6))
+plt.suptitle('Monthly Number of Sales by Year                                      Monthly Revenue of Sales by Year', fontsize=14)
+
+#Line Graphs
+years = df['order_year'].unique()
+for i,year in enumerate(years):
+    count_line=sns.lineplot(data = sales_by_month[sales_by_month['order_year']==year], x = 'order_month', y='Order ID',ax = axes[i,0],marker='o').set(ylabel=year, ylim=(0,500), xticks='', xlabel='')   
+    rev_line=sns.lineplot(data = sales_by_month[sales_by_month['order_year']==year], x = 'order_month', y='Revenue', ax= axes[i,1], color='green', marker='o').set(ylabel='', ylim=(0,100000), xticks='',xlabel='')
+plt.show()
