@@ -56,6 +56,10 @@ df['Postal Code'] = df['Postal Code'].fillna(5401)
 # checking that NaN values have been filled in
 print(df.isnull().sum())
 
+##Correlation Matrix
+# Correlation Matrix to test alll numerical data
+sns.heatmap(df.corr(), annot = True, cmap='crest')
+
 ################################################################################################################
 
 #Saving the cleaned dataset to a new CSV for future use
