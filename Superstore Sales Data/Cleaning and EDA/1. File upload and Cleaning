@@ -1,5 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 # Read the data from the spreadsheet
 df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_train.csv')
@@ -54,3 +55,8 @@ print(null_val[['City','State', 'Postal Code']])
 df['Postal Code'] = df['Postal Code'].fillna(5401)
 # checking that NaN values have been filled in
 print(df.isnull().sum())
+
+################################################################################################################
+
+#Saving the cleaned dataset to a new CSV for future use
+df.to_csv('Superstore_cleaned.csv')
