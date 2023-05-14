@@ -1,4 +1,5 @@
 Data Files
-
-Superstore_original_data: uncleaned sales data
-Superstore_cleaned: cleaned sales data
+<br>
+__Superstore_original_data__: uncleaned sales data <br>
+<br>
+__Superstore_cleaned:__ cleaned sales data
