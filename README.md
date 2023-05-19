@@ -10,10 +10,6 @@ This repository displays only some of my projects across a wide assortment of Da
 
 - [Python Projects](https://github.com/lap309/Python)
 
-- [Tableau Dashboard]()
-
-- [Completed Courses]()
-
 ### Contact
 
 LinkedIn                  [@liana-principe](https://www.linkedin.com/in/liana-principe/)
