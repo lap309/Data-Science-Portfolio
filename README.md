@@ -35,26 +35,8 @@ Predicting Households that are more likely to experience food insecurity and exp
 ### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) 
 
 **Data Description:** A Retail dataset of a global superstore for 4 years
-#### Skills: `Forecasting`
-**Technology:**
+#### Skills: `Forecasting` `Unsupervised Clustering`
+**Technology:** `Python`
 
 **Results:**
-
-### [A/B Testing]
-
-**Data Description:**
-#### Skills:
-**Technology:**
-
-**Results:**
-
-
-### [Database]
-
-**Data Description:**
-#### Skills:
-**Technology:**
-
-**Results:**
-
 
