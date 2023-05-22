@@ -1,6 +1,10 @@
-import data
-###################################################################################################
+#Importing data
+############################################################################################
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
 df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_original_data.csv')
+
 SMALL_SIZE = 12
 MEDIUM_SIZE = 14
 BIGGER_SIZE = 18
