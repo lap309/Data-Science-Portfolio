@@ -1,1 +1,63 @@
-#Looks at sales across regions to gather insights
+import data
+###################################################################################################
+df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_original_data.csv')
+SMALL_SIZE = 12
+MEDIUM_SIZE = 14
+BIGGER_SIZE = 18
+
+plt.rcParams.update({'font.size': 18})
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=SMALL_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+###################################################################################################
+# Revenue and Number of Sales by Region
+rev_reg = df.groupby('Region').agg({'Revenue':'sum', 'Order ID':'count'}).rename(columns={'Order ID':'Number of Sales'}).sort_values('Revenue', ascending=False)
+print(rev_reg)
+
+# State Revenue and Sales Calulcation
+group_state = df.groupby('State').agg({'Revenue':'sum', 'Order ID':'count'}).rename(columns={'Order ID':'Number of Sales'})
+
+# Color Palette Set Up
+top_states = set(list(group_state.sort_values('Number of Sales', ascending=False).head(10).index)+list(group_state.sort_values('Revenue', ascending=False).head(10).index))
+state_colors = ['#cd34b5','#5f87d1','#123eab','grey','#0000ff','gold','#9d02d7','#ffb14e','#ea5f94','#7c05b7','#000000']
+state_palette= dict(zip(top_states,state_colors))
+fig, ax = plt.subplots(1,2, figsize=(15,8))
+plt.rcParams['axes.facecolor'] = 'white'
+
+#Revenue by Top 10 States Graph
+plt.subplot(1,2,1)
+sales_plot_state = sns.barplot(data=group_state.sort_values('Number of Sales',ascending=False).head(10),y=group_state.sort_values('Number of Sales',ascending=False).head(10).index, x='Number of Sales', orient ='h',palette = state_palette).set(xlabel='Number of Sales')
+plt.title('States with Most Sales',fontsize=16)
+
+#Number of Sales by Top 10 States Graph
+plt.subplot(1,2,2)
+rev_plot_state = sns.barplot(data=group_state.sort_values('Revenue', ascending=False).head(10),y=group_state.sort_values('Revenue',ascending=False).head(10).index, x='Revenue', orient='h', palette = state_palette).set(xlabel='Revenue', ylabel='')
+plt.title('States with Highest Revenue',fontsize=16)
+plt.tight_layout()
+plt.show()
+
+# City Revenue and Sales Calulcation
+group_city = df.groupby('City').agg({'Revenue':'sum', 'Order ID':'count'}).rename(columns={'Order ID':'Number of Sales'})
+
+top_city =set(list(group_city.sort_values('Number of Sales', ascending=False).head(10).index)+list(group_city.sort_values('Revenue', ascending=False).head(10).index))
+city_colors=['gold','#ea5f94','#5f87d1','#7c05b7','#9d02d7','gold','#123eab','gold','black','#0000ff','#ffb14e','#cd34b5']
+city_palette = dict(zip(top_city, city_colors))
+
+fig, ax=plt.subplots(1,2,figsize=(15,7))
+plt.rcParams['axes.facecolor'] = 'white'
+#Number of Sales by Top 10 CITIES Graph
+plt.subplot(1,2,1)
+sales_plot_city = sns.barplot(data= group_city.sort_values('Number of Sales', ascending=False).head(10), y=group_city.sort_values('Number of Sales', ascending=False).head(10).index, x='Number of Sales', orient='h', palette = city_palette).set(ylabel='City', xlabel='Number of Sales')
+plt.title('Cities with the Most Sales', fontsize=16)
+
+#Revenue by Top 10 CITIES Graph
+plt.subplot(1,2,2)
+rev_plot_city = sns.barplot(data=group_city.sort_values('Revenue', ascending=False).head(10), y=group_city.sort_values('Revenue', ascending=False).head(10).index, x='Revenue', orient='h', palette=city_palette).set(xlabel='Revenue', ylabel='')
+plt.title('Cities with the Highest Revenue', fontsize=16)
+plt.tight_layout()
+plt.show()
