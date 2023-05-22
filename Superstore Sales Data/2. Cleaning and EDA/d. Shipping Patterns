@@ -1,0 +1,79 @@
+#Importing data
+############################################################################################
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('C:/Users/liana.principe/Downloads/Superstore_cleaned.csv')
+
+SMALL_SIZE = 12
+MEDIUM_SIZE = 14
+BIGGER_SIZE = 18
+plt.rcParams.update({'font.size': 18})
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=SMALL_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+#############################################################################################
+
+shipping_mode=['Same Day','First Class','Second Class','Standard Class']
+print(df['Ship Mode'].value_counts())
+
+# Shipping method Frequency by region
+shipping_by_region = df.groupby(['Region','Ship Mode']).agg({'Ship Mode':'count'}).rename(columns={'Order ID':'Number of Sales'})
+shipping = ['First\n Class', 'Same\n Day','Second\n Class','Standard\n Class']
+regions = df['Region'].unique()
+
+print('Number of Sales by\n',rev_reg['Number of Sales'])
+
+fig, axes = plt.subplots(1,4, figsize=(18,6))
+plt.suptitle('Shipping Mode Frequency by Region', fontsize=18, color='blue')
+for i in range(4):
+    px = axes[i].bar(shipping, shipping_by_region.loc[regions[i]]['Ship Mode'])
+    axes[i].set(title=regions[i], ylim=(0,1900))
+    axes[i].title.set_size(20)
+    axes[i].tick_params(labelsize=12)
+    axes[i].grid(axis='x')
+    if i==0:
+        axes[i].set(ylabel='Shipping Mode Frequency')
+ 
+# Shipping Method Percentage by Region
+shipping_by_region_prct=pd.DataFrame(df[['Region','Ship Mode']].groupby(['Region']).value_counts(normalize=True), columns=['Ship Mode Frequency']).sort_index()
+shipping_by_region_prct['Ship Mode Frequency']=round(shipping_by_region_prct['Ship Mode Frequency']*100,2)
+
+fig, axes = plt.subplots(1,4, figsize=(18,6))
+plt.suptitle('Shipping Mode Percentages by Region', fontsize=18, color='purple')
+for i in range(4):
+    px = axes[i].bar(shipping, shipping_by_region_prct.loc[regions[i]]['Ship Mode Frequency'], color='purple')
+    axes[i].set(title=regions[i], ylim=(0,100))
+    axes[i].title.set_size(20)
+    axes[i].tick_params(labelsize=12)
+    axes[i].grid(axis='x')
+    if i==0:
+        axes[i].set(ylabel='Percentage(%)')
+   
+# Time series of different shipping method
+shipping_by_date = df.groupby(['Ship Mode','order_year','order_month','order_month_n']).agg({'Order ID':'count'}).sort_values(['Ship Mode','order_month_n'])
+shipping_month_avg=shipping_by_date.groupby(['Ship Mode','order_month','order_month_n']).agg({'Order ID':'mean'}).sort_values(['Ship Mode','order_month_n']).rename(columns={'Order ID':'Number of Sales'}).reset_index('order_month_n') 
+ 
+fig, axes = plt.subplots(4,1, figsize=(18,10))
+plt.suptitle('Average Shipping Mode by Month', fontsize=18, color='green')
+
+ship_colors=["#7ae85d","#14f105","#36c530","#0e850b"]
+for i in range(4):
+    plt.subplot(4,1,i+1)
+    plt.fill_between(months_abr,shipping_month_avg.loc[shipping_mode[i]]['Number of Sales'],color=ship_colors[i])
+    plt.ylabel(shipping_mode[i], rotation='horizontal', ha='right')
+plt.show() 
+ 
+# Most Frequent Shipping Method in the States with the Most Number of Sales
+group_state = df.groupby('State').agg({'Revenue':'sum', 'Order ID':'count'}).rename(columns={'Order ID':'Number of Sales'})
+top_states = set(list(group_state.sort_values('Number of Sales', ascending=False).head(10).index)+list(group_state.sort_values('Revenue', ascending=False).head(10).index))
+
+test = pd.DataFrame(df[df['State'].isin(top_states)][['State','Ship Mode','Order ID']]).groupby(['State','Ship Mode']).agg({'Order ID':'count'}).reset_index('Ship Mode')
+print(test.groupby(test.index).max()) 
+ 
+ 
