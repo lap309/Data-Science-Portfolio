@@ -18,3 +18,87 @@ plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
 plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 #############################################################################################
+# Category Summary Table
+cat_sum_tab=df.groupby('Category').agg({'Order ID':'count','Revenue':'sum'}).rename(columns={'Order ID':'Number of Sales'}).sort_values('Revenue', ascending=False)
+print('Category Summary Table\n',cat_sum_tab)
+
+fig, axes = plt.subplots(3,1, figsize=(18,10))
+plt.suptitle('Average Revenue by Month', fontsize=18)
+
+category_sales = df.groupby(['Category','order_year','order_month_n','order_month']).agg( {'Order ID':'count', 'Revenue': 'sum'}).reset_index()
+cat_avg_sale = category_sales.groupby(['Category','order_month','order_month_n']).agg({'Order ID':'mean','Revenue':'mean'}).sort_values(['Category','order_month_n'])
+
+
+cat_colors=["#003f5c","#58508d","#bc5090"]
+
+for i in range(len(cat_sum_tab.index)):
+    plt.rc('axes', axisbelow=True)
+    plt.subplot(3,1,i+1)
+    plt.grid(axis='y')
+    plt.fill_between(months_abr,cat_avg_sale.loc[cat_sum_tab.index[i]]['Revenue'],color=cat_colors[i])
+    plt.ylabel(cat_sum_tab.index[i], rotation='horizontal', ha='right')
+    plt.ylim(0,35000)
+    
+plt.show()
+
+# Sub-category Summary Table
+subcategory_count = df.groupby(['Category','Sub-Category']).agg({'Order ID':'count','Revenue':'sum'}).rename(columns={'Order ID':'Number of Sales'}).sort_values(['Category','Revenue'],ascending=False)
+display(subcategory_count)
+
+# Calculating highest category and subcategory
+subcategory_count = df.groupby(['Category','Sub-Category']).agg({'Order ID':'count','Revenue':'sum'}).rename(columns={'Order ID':'Number of Sales'}).sort_values(['Category','Revenue'],ascending=False)
+
+subcategory_count=subcategory_count.reset_index('Sub-Category')
+sns.set_style('white')
+fig, axes = plt.subplots(1,2, figsize=(18,4))
+
+# Most Sold Sub-Categories Graph
+plt.subplot(1,2,1)
+g1=plt.bar(subcategory_count.sort_values('Number of Sales', ascending=False)['Sub-Category'], subcategory_count.sort_values('Number of Sales', ascending=False)['Number of Sales'],color= '#99ff99',edgecolor='green', linewidth = 1)
+plt.xticks(rotation=90)
+plt.title('Overall Most Popular Sub-Category', fontsize=18)
+
+# Highest Revenue Subcategories Graph
+plt.subplot(1,2,2)
+g2=plt.bar(subcategory_count.sort_values('Revenue', ascending=False)['Sub-Category'], subcategory_count.sort_values('Revenue', ascending=False)['Revenue'],color= '#FF6F61',edgecolor='Red', linewidth = 1)
+plt.xticks(rotation=90)
+plt.title('Overall Highest Revenue Sub-Categories', fontsize=18)
+
+# Time series of sales for most popular items
+subcats_most_popular=['Binders', 'Paper','Furnishings','Phones','Storage']
+subcat_timeseries_most_popular = df[df['Sub-Category'].isin(subcats_most_popular)].groupby(['order_year','order_month_n', 'order_month', 'Sub-Category']).agg({'Order ID':'count'}).rename(columns={'Order ID': 'Number of Purchases'}).reset_index(['order_month_n', 'order_month','Sub-Category'])
+
+# Time series of sales for highest revenue items
+subcats_highest_rev = ['Phones','Chairs','Storage','Tables','Binders']
+subcat_timeseries_highest_rev = df[df['Sub-Category'].isin(subcats_highest_rev)].groupby(['order_year','order_month_n', 'order_month', 'Sub-Category']).agg({'Order ID':'count'}).rename(columns={'Order ID':'Number of Purchases'}).reset_index(['order_month_n', 'order_month','Sub-Category'])
+
+# Graphing
+sns.set_style('ticks')
+fig, axes = plt.subplots(5,2, figsize=(12,7))
+plt.suptitle('Average Monthly Sales of Most Popular Subcategory               Average Monthly Sales of Subcategory with Highest Revenue', fontsize=14)
+for i,j in enumerate(range(1,11,2)):
+    plt.subplot(5,2,j)
+    sns.lineplot(data = subcat_timeseries_most_popular[subcat_timeseries_most_popular['Sub-Category']==subcats_most_popular[i]].groupby(['order_month']).agg({'Number of Purchases':'mean'}), x = 'order_month', y='Number of Purchases', color='#99ff99').set(ylabel=subcats_most_popular[i], ylim=(0,70), xticklabels='',xlabel='')
+for k,l in enumerate(range(2,12,2)):
+    plt.subplot(5,2,l)
+    sns.lineplot(data = subcat_timeseries_highest_rev[subcat_timeseries_highest_rev['Sub-Category']==subcats_highest_rev[k]].groupby(['order_month']).agg({'Number of Purchases':'mean'}), x = 'order_month', y='Number of Purchases', color='#FF6F61').set(ylabel=subcats_highest_rev[k], ylim=(0,70), xticklabels='',xlabel='', title='')
+plt.show()
+
+#Highest Product names by best category
+
+top_products= df[df['Sub-Category'].isin(['Binders','Paper','Furnishings'])].groupby(['Sub-Category', 'Product Name']).agg({'Product Name':'count'}).rename(columns={'Product Name':'Number of Sales'}).sort_values(['Sub-Category','Number of Sales'], ascending=False).reset_index()
+top_products=top_products.groupby('Sub-Category').head(3).set_index(['Sub-Category', 'Product Name'])         #head only works if there are no indexes
+display('Items with the Most Sales in most Popular Subcategory',top_products)
+
+high_rev_products = df[df['Sub-Category'].isin(['Phones','Chairs','Storage'])].groupby(['Sub-Category', 'Product Name']).agg({'Product Name':'count'}).rename(columns={'Product Name':'Number of Sales'}).sort_values(['Sub-Category','Number of Sales'], ascending=False).reset_index()
+high_rev_products=high_rev_products.groupby('Sub-Category').head(3).set_index(['Sub-Category','Product Name'])         #head only works if there are no indexes
+display('Most Sold Items Amonst Subcategories that Contribute the Most Revenue',high_rev_products)
+
+#Category by Shipping Method
+display(pd.DataFrame(df.groupby('Category')['Category','Ship Mode'].value_counts(ascending=False, normalize=True)*100, columns=['Frequency (%)']))
+
+#Subcategory by Same Day Shipping
+same_day_subcat = pd.DataFrame(df[df['Ship Mode']=='Same Day'].groupby(['Ship Mode','Sub-Category']).agg({'Order ID':'count'}).head(10).sort_values('Order ID', ascending=False).rename(columns={'Order ID':'Number of Sales'}))
+display('Same Day Shippping:',same_day_subcat)
+first_class_subcat = pd.DataFrame(df[df['Ship Mode']=='First Class'].groupby(['Ship Mode','Sub-Category']).agg({'Order ID':'count'}).head(10).sort_values('Order ID', ascending=False).rename(columns={'Order ID': 'Number of Sales'}))
+display('First Class Shippping:',first_class_subcat)
