@@ -32,7 +32,7 @@ Predicting Households that are more likely to experience food insecurity and exp
 
 **Data Description:** All sales records for a global superchain store spanning 6 years
 #### Skills: `Forecasting` `Unsupervised Clustering` `Dashboard Creation` `A/B Testing`
-**Technology & Resources:** `Python`
+**Technology & Resources:** `Python` `SARIMA` `Prophet` `Tableau`
 
 **Results:** Revenue Forecast Model with an accuracy of _% and an audience clustering/segmentation process to initiate a membership rewards program across all chain locations
 
