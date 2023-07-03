@@ -23,16 +23,16 @@ Email:                    principe.liana@gmail.com
 Predicting Households that are more likely to experience food insecurity and exploring socio-economic variables that indicate whether a household will utilize SNAP (food stamp) benefits
 
 **Data Description:** FoodAPS government survey conducted by the ERS and FNS in 2012
-#### Skills: `Logistic Regression` `XGBoost` `Hyperparameter Tuning` `Time Series Analysis` `Forecasting`
-**Technology:** `Python` `Prophet` `Tableau` `GridSearch`
+#### Skills: `Logistic Regression` `XGBoost` `Hyperparameter Tuning` `Time Series Analysis` `Forecasting` `Ensemble Learning` `Dashboard Creation`
+**Technology & Resources:** `Python` `Prophet` `Tableau` `GridSearch`
 
 **Results:** A predictive model that has an accuracy of 79% and recall of 84% in detecting whether a household will utilize SNAP resources
 
 ### [Superstore Sales](https://github.com/lap309/Data-Analysis-Portfolio/tree/main/Superstore%20Sales%20Data) 
 
-**Data Description:** A Retail dataset of a global superstore for 4 years
-#### Skills: `Forecasting` `Unsupervised Clustering`
-**Technology:** `Python`
+**Data Description:** All sales records for a global superchain store spanning 6 years
+#### Skills: `Forecasting` `Unsupervised Clustering` `Dashboard Creation` `A/B Testing`
+**Technology & Resources:** `Python`
 
-**Results:**
+**Results:** Revenue Forecast Model with an accuracy of _% and an audience clustering/segmentation process to initiate a membership rewards program across all chain locations
 
